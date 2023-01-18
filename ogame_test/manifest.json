@@ -1,0 +1,18 @@
+{
+    "manifest_version": 3,
+    "name": "Ogame Test",
+    "version": "1.0",
+    "description": "Ogame test",
+
+    "icons": {
+        "32": "images/hello_extensions.png"
+    },
+    "content_scripts": [{
+        "js": [
+            "scripts/content.js"
+        ],
+        "matches": [
+            "https://s189-de.ogame.gameforge.com/*"
+        ]
+    }]
+}
