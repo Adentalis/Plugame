@@ -1,0 +1,18 @@
+{
+    "manifest_version": 3,
+    "name": "Plugame",
+    "version": "1.0",
+    "description": "Adentalis Ogame plugin",
+
+    "icons": {
+        "64": "icon.png"
+    },
+    "content_scripts": [{
+        "js": [
+            "features/content.js"
+        ],
+        "matches": [
+            "https://s189-de.ogame.gameforge.com/*"
+        ]
+    }]
+}
