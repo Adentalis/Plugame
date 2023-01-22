@@ -9,7 +9,8 @@
     },
     "content_scripts": [{
         "js": [
-            "features/content.js"
+            "features/test.js",
+            "features/planetSizes.js"
         ],
         "matches": [
             "https://s189-de.ogame.gameforge.com/*"
