@@ -10,7 +10,8 @@
     "content_scripts": [{
         "js": [
             "features/test.js",
-            "features/planetSizes.js"
+            "features/planetSizes.js",
+            "features/galaxyView.js"
         ],
         "matches": [
             "https://s189-de.ogame.gameforge.com/*"
