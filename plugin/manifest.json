@@ -11,7 +11,8 @@
         "js": [
             "features/test.js",
             "features/planetSizes.js",
-            "features/galaxyView.js"
+            "features/galaxyView.js",
+            "features/fleet.js"
         ],
         "matches": [
             "https://s189-de.ogame.gameforge.com/*"
