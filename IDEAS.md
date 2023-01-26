@@ -6,4 +6,7 @@
 
 - [ ] Player rank in galaxy
 
-- [ ] Add a button to preselect expos (can this button be on the main screen?)
+- [ ] Add buttons to send fleet
+  - [ ] send fleet to expo
+  - [ ] send all resources to main planet
+  - [ ]
