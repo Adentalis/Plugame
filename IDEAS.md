@@ -9,4 +9,4 @@
 - [ ] Add buttons to send fleet
   - [ ] send fleet to expo
   - [ ] send all resources to main planet
-  - [ ]
+  - [ ] create 2 inputs for met and kris to write amount to send to another plaent
