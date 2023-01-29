@@ -37,27 +37,24 @@ if (planetList) {
         planetTitle.indexOf(')')
       );
 
-      let pName = planet.getElementsByClassName('planet-name')[0].innerHTML;
+      const pName = planet.getElementsByClassName('planet-name')[0].innerHTML;
+      const expo = eventResult.find((e) => e.name === pName);
+      const toWrite = expo ? `Returns in ${expo.arrival}` : 'no expo';
+      const color = expo ? 'green' : 'red';
 
-      let toWrite = '';
-      eventResult.forEach((e) => {
-        if (e.name === pName) {
-          toWrite = 'Returns in ' + e.arrival;
-        }
-      });
-
-      let fieldSpan = document.createElement('span');
+      const fieldSpan = document.createElement('span');
       fieldSpan.textContent = resultString;
       fieldSpan.style.position = 'absolute';
       fieldSpan.style.marginTop = '-18px';
       fieldSpan.style.fontSize = '0.85em';
 
-      let expoSpan = document.createElement('span');
+      const expoSpan = document.createElement('span');
       expoSpan.textContent = toWrite;
       expoSpan.style.position = 'absolute';
       expoSpan.style.marginLeft = '50px';
       expoSpan.style.marginTop = '-18px';
       expoSpan.style.fontSize = '0.85em';
+      expoSpan.style.color = color;
 
       planet.insertAdjacentElement('afterend', fieldSpan);
       planet.insertAdjacentElement('afterend', expoSpan);
