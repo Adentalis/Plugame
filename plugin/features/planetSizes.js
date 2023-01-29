@@ -67,3 +67,17 @@ function millisToMinutesAndSeconds(millis) {
   var seconds = ((millis % 60000) / 1000).toFixed(0);
   return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
 }
+
+async function sayHi() {
+  console.log('htt');
+
+  chrome.storage.local.set({ t: 'value' }).then(() => {
+    console.log('Value is set to ' + 'value');
+  });
+
+  chrome.storage.local.get('t').then((result) => {
+    console.log('Value currently is ' + JSON.stringify(result));
+  });
+}
+
+sayHi();
