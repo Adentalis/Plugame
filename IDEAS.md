@@ -13,3 +13,5 @@
   - [ ] create 2 inputs for met and kris to write amount to send to another plaent
 
 - [] show within the image of a mine how much it costs, and how much is left.
+
+- [] show all planets without a expo. First in a list then on each planet link on the right side
