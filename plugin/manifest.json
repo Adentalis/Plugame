@@ -14,10 +14,15 @@
             "features/galaxyView.js",
             "features/fleet.js",
             "features/mines.js",
-            "features/overview.js"
+            "features/overview.js",
+            "data/planetNames.js"
         ],
         "matches": [
             "https://s189-de.ogame.gameforge.com/*"
         ]
-    }]
+    }],
+    "background": {
+        "type": "module"
+    }
+
 }
