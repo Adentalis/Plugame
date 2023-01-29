@@ -8,11 +8,18 @@ if (planetList) {
 
     if (planetLink.length > 0) {
       planetTitle = planetLink[0].getAttribute('title');
-      let a = document.createElement('span');
-      a.textContent = planetTitle.slice(
+      let resultString = planetTitle.slice(
         planetTitle.indexOf('(') + 1,
         planetTitle.indexOf(')')
       );
+
+      let a = document.createElement('span');
+      a.textContent = resultString;
+      a.style.position = 'absolute';
+      a.style.marginTop = '-18px';
+      a.style.marginLeft = '46px';
+      a.style.fontSize = '0.85em';
+
       planet.insertAdjacentElement('afterend', a);
     }
   }
