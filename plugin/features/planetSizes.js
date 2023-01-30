@@ -1,7 +1,7 @@
 let firstIteration = true;
 let planetIndex = 0;
 
-function test() {
+async function test() {
   planetIndex = 0;
   const planetList = document.querySelector('#planetList');
 
@@ -23,6 +23,11 @@ function test() {
     const expo = eventResult.find((e) => e.name === pName);
     const toWrite = expo ? `Returns in ${expo.arrival}` : 'no expo';
     const color = expo ? 'green' : 'red';
+
+    //get time from storage
+    chrome.storage.local.get('Nakamoto-BuildingTimeLeft').then((result) => {
+      console.log('Value currently is ' + JSON.stringify(result));
+    });
 
     if (firstIteration) {
       const fieldSpan = document.createElement('span');
@@ -63,18 +68,34 @@ function millisToMinutesAndSeconds(millis) {
   return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
 }
 
-async function sayHi() {
-  console.log('htt');
+async function storeCurrentBuildingTime() {
+  console.log('store time');
+  let timeText = '';
+  let productionBuilding = document.querySelector(
+    '#productionboxbuildingcomponent'
+  );
+  let remainingTime = productionBuilding.querySelector('#buildingCountdown');
+  if (remainingTime) {
+    timeText = remainingTime.innerText;
+  } else {
+    timeText = 'no building';
+  }
 
-  chrome.storage.local.set({ t: 'value' }).then(() => {
-    console.log('Value is set to ' + 'value');
-  });
-
-  chrome.storage.local.get('t').then((result) => {
-    console.log('Value currently is ' + JSON.stringify(result));
+  let currentPlanet = document.querySelector('#planetNameHeader');
+  let currentPlanetName = currentPlanet.innerHTML.trim();
+  let toStore = currentPlanetName + '-BuildingTimeLeft';
+  console.log('key: ' + toStore);
+  chrome.storage.local.set({ toStore: timeText }).then(() => {
+    console.log('Value is set to ' + timeText);
   });
 }
 
+/**
+
+ * Goes through all fleet events and check if there is an arrival expedition
+ * for each planet
+ * @returns array of {name: planetName, arrivalTime: time as mm:ss}
+ */
 function checkForEachPlanetExpoArrivalTime() {
   const eventContent2 = document.getElementsByClassName('eventFleet');
   let res = [];
@@ -103,4 +124,4 @@ function checkForEachPlanetExpoArrivalTime() {
   return res;
 }
 
-sayHi();
+storeCurrentBuildingTime();
