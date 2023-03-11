@@ -25,9 +25,9 @@ async function test() {
     const color = expo ? 'green' : 'red';
 
     //get time from storage
-    chrome.storage.local.get('Nakamoto-BuildingTimeLeft').then((result) => {
-      console.log('Value currently is ' + JSON.stringify(result));
-    });
+    // chrome.storage.local.get('Nakamoto-BuildingTimeLeft').then((result) => {
+    //   console.log('Value currently is ' + JSON.stringify(result));
+    // });
 
     if (firstIteration) {
       const fieldSpan = document.createElement('span');
@@ -84,10 +84,10 @@ async function storeCurrentBuildingTime() {
   let currentPlanet = document.querySelector('#planetNameHeader');
   let currentPlanetName = currentPlanet.innerHTML.trim();
   let toStore = currentPlanetName + '-BuildingTimeLeft';
-  console.log('key: ' + toStore);
-  chrome.storage.local.set({ toStore: timeText }).then(() => {
-    console.log('Value is set to ' + timeText);
-  });
+  // console.log('key: ' + toStore);
+  // chrome.storage.local.set({ toStore: timeText }).then(() => {
+  //   console.log('Value is set to ' + timeText);
+  // });
 }
 
 /**
