@@ -22,8 +22,18 @@ if (sidebarA) {
 
 function onStore() {
   console.log('on store');
+  let key = 'ogametest';
+  let value = '23';
+  chrome.storage.local.set({ [key]: '23444' }).then(() => {
+    console.log('Value is set to ' + '23444');
+  });
 }
 
 function onLoad() {
   console.log('on load');
+  let key = 'ogametest';
+
+  chrome.storage.local.get(key).then((result) => {
+    console.log('Value currently is ' + JSON.stringify(result));
+  });
 }
