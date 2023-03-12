@@ -19,10 +19,6 @@ async function test() {
     let planetLink = planet.getElementsByClassName('planetlink');
 
     planetTitle = planetLink[0].getAttribute('title');
-    let resultString = planetTitle.slice(
-      planetTitle.indexOf('(') + 1,
-      planetTitle.indexOf(')')
-    );
 
     const pName = planet.getElementsByClassName('planet-name')[0].innerHTML;
     const expo = eventResult.find((e) => e.name === pName);
@@ -30,24 +26,44 @@ async function test() {
     const color = expo ? 'green' : 'red';
 
     if (firstIteration) {
-      const fieldSpan = document.createElement('span');
-      fieldSpan.textContent = resultString;
-      fieldSpan.style.position = 'absolute';
-      fieldSpan.style.marginTop = '-18px';
-      fieldSpan.style.fontSize = '0.85em';
+      chrome.storage.local.get('Berlin-construction').then((result) => {
+        let data = result['Berlin-construction'];
 
-      const expoSpan = document.createElement('span');
-      expoSpan.setAttribute('id', 'planetFields' + planetIndex);
-      expoSpan.textContent = toWrite;
-      expoSpan.style.position = 'absolute';
-      expoSpan.style.marginLeft = '50px';
-      expoSpan.style.marginTop = '-18px';
-      expoSpan.style.fontSize = '0.85em';
-      expoSpan.style.color = color;
+        // span to display the fieldsUsed/totalFields f.eg '103/267'
+        const fieldSpan = document.createElement('span');
+        fieldSpan.textContent = planetTitle.slice(
+          planetTitle.indexOf('(') + 1,
+          planetTitle.indexOf(')')
+        );
+        fieldSpan.style.position = 'absolute';
+        fieldSpan.style.marginTop = '-18px';
+        fieldSpan.style.fontSize = '0.85em';
 
-      planet.insertAdjacentElement('afterend', fieldSpan);
-      planet.insertAdjacentElement('afterend', expoSpan);
+        // span to display the expo information on each planet
+        const expoSpan = document.createElement('span');
+        expoSpan.setAttribute('id', 'planetFields' + planetIndex);
+        expoSpan.textContent = toWrite;
+        expoSpan.style.position = 'absolute';
+        expoSpan.style.marginLeft = '50px';
+        expoSpan.style.marginTop = '-18px';
+        expoSpan.style.fontSize = '0.85em';
+        expoSpan.style.color = color;
+        expoSpan.style.whiteSpace = 'nowrap';
+
+        // span to display the expo information on each planet
+        const constructionSpan = document.createElement('span');
+        constructionSpan.textContent = `${data.building} ${data.level} - ${data.finishTime}`;
+        constructionSpan.style.position = 'absolute';
+        constructionSpan.style.marginLeft = '40px';
+        // constructionSpan.style.marginTop = '-18px';
+        constructionSpan.style.fontSize = '0.85em';
+
+        planet.insertAdjacentElement('afterend', fieldSpan);
+        planet.insertAdjacentElement('afterend', expoSpan);
+        planet.insertAdjacentElement('afterbegin', constructionSpan);
+      });
     } else {
+      // only update values = textContent
       spanToChange = document.querySelector('#planetFields' + planetIndex);
       spanToChange.textContent = toWrite;
       spanToChange.style.color = color;
@@ -62,12 +78,6 @@ function inter() {
   }, 1000);
 }
 inter();
-
-function millisToMinutesAndSeconds(millis) {
-  var minutes = Math.floor(millis / 60000);
-  var seconds = ((millis % 60000) / 1000).toFixed(0);
-  return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
-}
 
 async function storeCurrentBuildingTime() {
   let productionBuilding = document.querySelector(
@@ -124,22 +134,14 @@ async function storeCurrentBuildingTime() {
     .innerText.replace('Stufe ', '');
 
   // get the finish time
-  data.finishTime = productionBuilding.querySelector(
-    '#ago_construction_building'
-  );
-
-  console.log(data);
+  // data.finishTime = productionBuilding.querySelector(
+  //   '#ago_construction_building'
+  // );
+  data.finishTime = '11.11';
   let key = `${data.planetName}-construction`;
-  console.log(key);
   chrome.storage.local.set({ [key]: data }).then(() => {
     console.log(`${key} is set`);
   });
-
-  // let toStore = currentPlanetName + '-BuildingTimeLeft';
-  // console.log('key: ' + toStore);
-  // chrome.storage.local.set({ toStore: timeText }).then(() => {
-  //   console.log('Value is set to ' + timeText);
-  // });
 }
 
 /**
@@ -174,6 +176,12 @@ function checkForEachPlanetExpoArrivalTime() {
     }
   }
   return res;
+}
+
+function millisToMinutesAndSeconds(millis) {
+  var minutes = Math.floor(millis / 60000);
+  var seconds = ((millis % 60000) / 1000).toFixed(0);
+  return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
 }
 
 storeCurrentBuildingTime();
