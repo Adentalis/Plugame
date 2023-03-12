@@ -12,7 +12,8 @@
             "features/pluginLoaded.js",
             "features/planetSizes.js",
             "features/galaxyView.js",
-            "data/planetNames.js"
+            "data/planetNames.js",
+            "features/localStorage/savePlanet-construction.js"
         ],
         "matches": [
             "https://s190-de.ogame.gameforge.com/*"
