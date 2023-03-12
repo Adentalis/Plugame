@@ -26,8 +26,8 @@ async function test() {
     const color = expo ? 'green' : 'red';
 
     if (firstIteration) {
-      chrome.storage.local.get('Berlin-construction').then((result) => {
-        let data = result['Berlin-construction'];
+      chrome.storage.local.get(`${pName}-construction`).then((result) => {
+        let data = result[`${pName}-construction`];
 
         // span to display the fieldsUsed/totalFields f.eg '103/267'
         const fieldSpan = document.createElement('span');
@@ -52,7 +52,7 @@ async function test() {
 
         // span to display the expo information on each planet
         const constructionSpan = document.createElement('span');
-        constructionSpan.textContent = `${data.building} ${data.level} - ${data.finishTime}`;
+        constructionSpan.textContent = `${data.building}(${data.level}) ${data.finishTime}`;
         constructionSpan.style.position = 'absolute';
         constructionSpan.style.marginLeft = '40px';
         // constructionSpan.style.marginTop = '-18px';
@@ -134,10 +134,9 @@ async function storeCurrentBuildingTime() {
     .innerText.replace('Stufe ', '');
 
   // get the finish time
-  // data.finishTime = productionBuilding.querySelector(
-  //   '#ago_construction_building'
-  // );
-  data.finishTime = '11.11';
+  let uu = productionBuilding.querySelector('#ago_construction_building');
+  console.log(uu.innerHTML);
+  data.finishTime = uu.innerHTML;
   let key = `${data.planetName}-construction`;
   chrome.storage.local.set({ [key]: data }).then(() => {
     console.log(`${key} is set`);
