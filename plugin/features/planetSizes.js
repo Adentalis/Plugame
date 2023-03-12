@@ -64,9 +64,10 @@ async function test() {
       });
     } else {
       // only update values = textContent
-      spanToChange = document.querySelector('#planetFields' + planetIndex);
-      spanToChange.textContent = toWrite;
-      spanToChange.style.color = color;
+      //spanToChange = document.querySelector('#planetFields' + planetIndex);
+      // console.log(spanToChange);
+      //spanToChange.textContent = toWrite;
+      //spanToChange.style.color = color;
     }
   }
   firstIteration = false;
@@ -103,11 +104,6 @@ async function storeCurrentBuildingTime() {
     building: '', // Done
     level: '', // Done
     finishTime: '',
-
-    // non building things
-    // metall: '',
-    // cristal: '',
-    // deuterium: '',
   };
 
   // get the planet name either from the overview or supplies page
