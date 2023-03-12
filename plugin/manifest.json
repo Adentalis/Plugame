@@ -9,13 +9,9 @@
     },
     "content_scripts": [{
         "js": [
-            "features/test.js",
+            "features/pluginLoaded.js",
             "features/planetSizes.js",
             "features/galaxyView.js",
-            "features/fleet.js",
-            "features/mines.js",
-            "features/overview.js",
-            "features/test-storage.js",
             "data/planetNames.js"
         ],
         "matches": [
