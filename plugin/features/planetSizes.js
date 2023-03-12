@@ -1,3 +1,8 @@
+/*
+ Here is a setIntval for updating the return expo time. 
+ Only in the first run I have to create the additional span th show the result.
+ In all the other iterations only update the innerHTML
+*/
 let firstIteration = true;
 let planetIndex = 0;
 
@@ -23,11 +28,6 @@ async function test() {
     const expo = eventResult.find((e) => e.name === pName);
     const toWrite = expo ? `Returns in ${expo.arrival}` : 'no expo';
     const color = expo ? 'green' : 'red';
-
-    //get time from storage
-    // chrome.storage.local.get('Nakamoto-BuildingTimeLeft').then((result) => {
-    //   console.log('Value currently is ' + JSON.stringify(result));
-    // });
 
     if (firstIteration) {
       const fieldSpan = document.createElement('span');
@@ -62,6 +62,7 @@ function inter() {
   }, 1000);
 }
 inter();
+
 function millisToMinutesAndSeconds(millis) {
   var minutes = Math.floor(millis / 60000);
   var seconds = ((millis % 60000) / 1000).toFixed(0);
@@ -69,21 +70,72 @@ function millisToMinutesAndSeconds(millis) {
 }
 
 async function storeCurrentBuildingTime() {
-  console.log('store time');
-  let timeText = '';
   let productionBuilding = document.querySelector(
     '#productionboxbuildingcomponent'
   );
-  let remainingTime = productionBuilding.querySelector('#buildingCountdown');
-  if (remainingTime) {
-    timeText = remainingTime.innerText;
-  } else {
-    timeText = 'no building';
+  if (!productionBuilding) {
+    console.log('Keine Gebäude Ansicht');
+    return;
   }
 
-  let currentPlanet = document.querySelector('#planetNameHeader');
-  let currentPlanetName = currentPlanet.innerHTML.trim();
-  let toStore = currentPlanetName + '-BuildingTimeLeft';
+  let remainingTime = productionBuilding.querySelector('#buildingCountdown');
+
+  if (!remainingTime) {
+    //Todo doesn't trigger
+    console.log('Keine Gebäude in Bau');
+  }
+
+  console.log('Ein Gebäude in Bau');
+
+  // I must save
+  let data = {
+    planetName: '', // Done
+    building: '', // Done
+    level: '', // Done
+    finishTime: '',
+
+    // non building things
+    // metall: '',
+    // cristal: '',
+    // deuterium: '',
+  };
+
+  // get the planet name either from the overview or supplies page
+  if (document.URL.includes('component=overview')) {
+    console.log('on overview page');
+    let currentPlanet = document.querySelector('#planetNameHeader');
+    data.planetName = currentPlanet.innerHTML.trim();
+  }
+
+  if (document.URL.includes('component=supplies')) {
+    console.log('on supply page');
+    //TODO from supplier view
+    let currentPlanet = document.querySelector('#planetNameHeader');
+    data.planetName = currentPlanet.innerHTML.trim();
+  }
+
+  // get the building name
+  let productionBuildingRows = productionBuilding.getElementsByTagName('tr');
+  data.building = productionBuildingRows[0].innerText;
+
+  // get the building level
+  data.level = productionBuildingRows[1]
+    .querySelector('.level')
+    .innerText.replace('Stufe ', '');
+
+  // get the finish time
+  data.finishTime = productionBuilding.querySelector(
+    '#ago_construction_building'
+  );
+
+  console.log(data);
+  let key = `${data.planetName}-construction`;
+  console.log(key);
+  chrome.storage.local.set({ [key]: data }).then(() => {
+    console.log(`${key} is set`);
+  });
+
+  // let toStore = currentPlanetName + '-BuildingTimeLeft';
   // console.log('key: ' + toStore);
   // chrome.storage.local.set({ toStore: timeText }).then(() => {
   //   console.log('Value is set to ' + timeText);

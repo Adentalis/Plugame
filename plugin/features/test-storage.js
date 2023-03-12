@@ -33,7 +33,7 @@ function onLoad() {
   console.log('on load');
   let key = 'ogametest';
 
-  chrome.storage.local.get(key).then((result) => {
+  chrome.storage.local.get('Berlin-construction').then((result) => {
     console.log('Value currently is ' + JSON.stringify(result));
   });
 }
