@@ -1,3 +1,6 @@
+/**
+ * This feature showed a list with all planetNames and their expo status
+ */
 let planetNames = [
   'Nakamoto',
   'Buterin',

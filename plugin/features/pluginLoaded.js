@@ -1,3 +1,7 @@
+/**
+ * This feature loads a test button that acts like a 'home' button
+ */
+
 const sidebar = document.querySelector('#menuTable');
 
 if (sidebar) {

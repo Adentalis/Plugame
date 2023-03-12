@@ -1,3 +1,6 @@
+/**
+ * This feature shows the ranks of the players in the galaxy view
+ */
 const galaxy = document.querySelector('#galaxyContent');
 
 if (galaxy) {

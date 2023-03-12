@@ -1,3 +1,7 @@
+/**
+ * This feature saves current cunstruction information for each planet
+ * This can only happen in the overview and suppliers page.
+ */
 async function storeCurrentBuildingTime() {
   let productionBuilding = document.querySelector(
     '#productionboxbuildingcomponent'
@@ -18,9 +22,9 @@ async function storeCurrentBuildingTime() {
 
   // I must save
   let data = {
-    planetName: '', // Done
-    building: '', // Done
-    level: '', // Done
+    planetName: '',
+    building: '',
+    level: '',
     finishTime: '',
   };
 

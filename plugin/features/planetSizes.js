@@ -1,3 +1,6 @@
+/**
+ * This feature shows additional planet information for each planet link on the right side
+ */
 /*
  Here is a setIntval for updating the return expo time. 
  Only in the first run I have to create the additional span th show the result.
@@ -80,7 +83,6 @@ function inter() {
 }
 inter();
 /**
-
  * Goes through all fleet events and check if there is an arrival expedition
  * for each planet
  * @returns array of {name: planetName, arrivalTime: time as mm:ss}
